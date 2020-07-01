@@ -152,7 +152,7 @@ namespace SuccinctlyExamples
             {
                 case "1":
                     {
-                        Console.WriteLine("You have selected [1] Select/Extract All Data.");
+                        Console.WriteLine("You have selected [1] Select/Extract All Person.");
                         ExtractPerson();
                         ReturnMenu();
                         break;
@@ -161,7 +161,7 @@ namespace SuccinctlyExamples
                     {
                         Person P = new Person();
 
-                        Console.WriteLine("You have selected [2] Add Person Data.");
+                        Console.WriteLine("You have selected [2] Add Person.");
 
                         Console.Write("Enter Last Name: ");
                         P.LastName = Console.ReadLine();
@@ -215,7 +215,7 @@ namespace SuccinctlyExamples
                     }
                 case "3":
                     {
-                        Console.WriteLine("You have selected [3] Search Person Data by LastName.");
+                        Console.WriteLine("You have selected [3] Search Person by LastName.");
                         Console.Write("Enter Last Name: ");
                         string searchKey = Console.ReadLine();
                         SearchPersonByLastName(searchKey);
@@ -224,7 +224,7 @@ namespace SuccinctlyExamples
                     }
                 case "4":
                     {
-                        Console.WriteLine("You have selected [4] Update Person Data.");
+                        Console.WriteLine("You have selected [4] Update Person.");
                         List<Person> lPersons = ExtractPerson();
                         Console.WriteLine();
 
