@@ -427,12 +427,12 @@ namespace SuccinctlyExamples
                 Console.WriteLine(" ----------------------------------------------------------------------------------------------------------------------");
                 foreach (Person p in lPersons)
                 {
-                    Console.WriteLine(" | {0} | {1} | {2} | {3} | {4} | {5} |", 
-                        p.ID.ToString().PadRight(5, ' '), 
+                    Console.WriteLine(" | {0} | {1} | {2} | {3} | {4} | {5} |",
+                        p.ID.ToString().PadRight(5, ' '),
                         p.LastName.Length > nMaxLength ? p.LastName.Substring(0, nMaxLength) + strOverflow : p.LastName.PadRight(nPaddingRight, ' '),
                         p.FirstName.Length > nMaxLength ? p.FirstName.Substring(0, nMaxLength) + strOverflow : p.FirstName.PadRight(nPaddingRight, ' '),
-                        p.MiddleName.Length > nMaxLength ? p.MiddleName.Substring(0, nMaxLength) + strOverflow : p.MiddleName.PadRight(nPaddingRight, ' '), 
-                        p.DateOfBirth.ToString().PadRight(30, ' '), 
+                        p.MiddleName.Length > nMaxLength ? p.MiddleName.Substring(0, nMaxLength) + strOverflow : p.MiddleName.PadRight(nPaddingRight, ' '),
+                        p.DateOfBirth.Equals(DateTime.MinValue) ? ("").PadRight(30, ' ') : p.DateOfBirth.ToString().PadRight(30, ' '),
                         p.Gender.PadRight(10, ' '));
                 }
                 Console.WriteLine(" ----------------------------------------------------------------------------------------------------------------------");
@@ -517,7 +517,7 @@ namespace SuccinctlyExamples
                         p.LastName.Length > nMaxLength ? p.LastName.Substring(0, nMaxLength) + strOverflow : p.LastName.PadRight(nPaddingRight, ' '),
                         p.FirstName.Length > nMaxLength ? p.FirstName.Substring(0, nMaxLength) + strOverflow : p.FirstName.PadRight(nPaddingRight, ' '),
                         p.MiddleName.Length > nMaxLength ? p.MiddleName.Substring(0, nMaxLength) + strOverflow : p.MiddleName.PadRight(nPaddingRight, ' '),
-                        p.DateOfBirth.ToString().PadRight(30, ' '),
+                        p.DateOfBirth.Equals(DateTime.MinValue) ? ("").PadRight(30, ' ') : p.DateOfBirth.ToString().PadRight(30, ' '),
                         p.Gender.PadRight(10, ' '));
                 }
                 Console.WriteLine(" ----------------------------------------------------------------------------------------------------------------------");
