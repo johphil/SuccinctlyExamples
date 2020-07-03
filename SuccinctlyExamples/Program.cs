@@ -1,4 +1,7 @@
-﻿using System;
+﻿//#define LECTURE
+#define EXERCISE6
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +14,7 @@ namespace SuccinctlyExamples
 {
     class Program
     {
-        #region Connection Methods
+#if (LECTURE)
         //Code Listing 4: Creating a SqlConnection
         static string SQLCString1_WinAuth = @"Server=W9RLD\DOTNET2; Database=SuccinctlyExamples; Integrated Security=SSPI";
         static string SQLCString1_SqlAuth = @"Server=W9RLD\DOTNET2; Database=SuccinctlyExamples; User Id=sa; Password=pass;";
@@ -49,8 +52,28 @@ namespace SuccinctlyExamples
             return baseConnectionString;
         }
         //__END Code Listing 8
-        #endregion
 
+        static void Main(string[] args)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(SQLCString4()))
+                {
+                connection.Open();
+                // The database is closed upon Dispose() (or Close()).
+                }
+                Console.WriteLine("Successfully opened and closed the database.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Something went wrong while opening a connection to the database: { ex.Message }");
+            }
+            Console.WriteLine("Press any key to close.");
+            Console.ReadKey();
+        }
+#endif ///LECTURE
+
+#if (EXERCISE6)
         static void Main(string[] args)
         {
             Menu();
@@ -134,7 +157,6 @@ namespace SuccinctlyExamples
         }
         //__END Code Listing 10
 
-        #region EXERCISE 5
         static void Menu()
         {
             Console.WriteLine("Menu: ");
@@ -358,6 +380,27 @@ namespace SuccinctlyExamples
             Console.Clear();
             Menu();
         }
+        static void DisplayPersonTable(List<Person> lPersons)
+        {
+            int nMaxLength = 15;
+            string strOverflow = "...";
+            int nPaddingRight = nMaxLength + strOverflow.Length;
+            Console.WriteLine();
+            Console.WriteLine(" ----------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine(" | ID    | Last Name          | First Name         | Middle Name        | Date of Birth                  | Gender     |");
+            Console.WriteLine(" ----------------------------------------------------------------------------------------------------------------------");
+            foreach (Person p in lPersons)
+            {
+                Console.WriteLine(" | {0} | {1} | {2} | {3} | {4} | {5} |",
+                    p.ID.ToString().PadRight(5, ' '),
+                    p.LastName.Length > nMaxLength ? p.LastName.Substring(0, nMaxLength) + strOverflow : p.LastName.PadRight(nPaddingRight, ' '),
+                    p.FirstName.Length > nMaxLength ? p.FirstName.Substring(0, nMaxLength) + strOverflow : p.FirstName.PadRight(nPaddingRight, ' '),
+                    p.MiddleName.Length > nMaxLength ? p.MiddleName.Substring(0, nMaxLength) + strOverflow : p.MiddleName.PadRight(nPaddingRight, ' '),
+                    p.DateOfBirth.Equals(DateTime.MinValue) ? ("").PadRight(30, ' ') : p.DateOfBirth.ToString().PadRight(30, ' '),
+                    p.Gender.PadRight(10, ' '));
+            }
+            Console.WriteLine(" ----------------------------------------------------------------------------------------------------------------------");
+        }
 
         //****************************************SQL PROCEDURES
         protected static string connectionString = ConfigurationManager.ConnectionStrings["SuccinctlyDB_WinAuth"]?.ConnectionString;
@@ -418,24 +461,7 @@ namespace SuccinctlyExamples
                     }
                 }
 
-                int nMaxLength = 15;
-                string strOverflow = "...";
-                int nPaddingRight = nMaxLength + strOverflow.Length;
-                Console.WriteLine();
-                Console.WriteLine(" ----------------------------------------------------------------------------------------------------------------------");
-                Console.WriteLine(" | ID    | Last Name          | First Name         | Middle Name        | Date of Birth                  | Gender     |");
-                Console.WriteLine(" ----------------------------------------------------------------------------------------------------------------------");
-                foreach (Person p in lPersons)
-                {
-                    Console.WriteLine(" | {0} | {1} | {2} | {3} | {4} | {5} |",
-                        p.ID.ToString().PadRight(5, ' '),
-                        p.LastName.Length > nMaxLength ? p.LastName.Substring(0, nMaxLength) + strOverflow : p.LastName.PadRight(nPaddingRight, ' '),
-                        p.FirstName.Length > nMaxLength ? p.FirstName.Substring(0, nMaxLength) + strOverflow : p.FirstName.PadRight(nPaddingRight, ' '),
-                        p.MiddleName.Length > nMaxLength ? p.MiddleName.Substring(0, nMaxLength) + strOverflow : p.MiddleName.PadRight(nPaddingRight, ' '),
-                        p.DateOfBirth.Equals(DateTime.MinValue) ? ("").PadRight(30, ' ') : p.DateOfBirth.ToString().PadRight(30, ' '),
-                        p.Gender.PadRight(10, ' '));
-                }
-                Console.WriteLine(" ----------------------------------------------------------------------------------------------------------------------");
+                DisplayPersonTable(lPersons);
 
                 return lPersons;
             }
@@ -503,24 +529,7 @@ namespace SuccinctlyExamples
                     }
                 }
 
-                int nMaxLength = 15;
-                string strOverflow = "...";
-                int nPaddingRight = nMaxLength + strOverflow.Length;
-                Console.WriteLine();
-                Console.WriteLine(" ----------------------------------------------------------------------------------------------------------------------");
-                Console.WriteLine(" | ID    | Last Name          | First Name         | Middle Name        | Date of Birth                  | Gender     |");
-                Console.WriteLine(" ----------------------------------------------------------------------------------------------------------------------");
-                foreach (Person p in lPersons)
-                {
-                    Console.WriteLine(" | {0} | {1} | {2} | {3} | {4} | {5} |",
-                        p.ID.ToString().PadRight(5, ' '),
-                        p.LastName.Length > nMaxLength ? p.LastName.Substring(0, nMaxLength) + strOverflow : p.LastName.PadRight(nPaddingRight, ' '),
-                        p.FirstName.Length > nMaxLength ? p.FirstName.Substring(0, nMaxLength) + strOverflow : p.FirstName.PadRight(nPaddingRight, ' '),
-                        p.MiddleName.Length > nMaxLength ? p.MiddleName.Substring(0, nMaxLength) + strOverflow : p.MiddleName.PadRight(nPaddingRight, ' '),
-                        p.DateOfBirth.Equals(DateTime.MinValue) ? ("").PadRight(30, ' ') : p.DateOfBirth.ToString().PadRight(30, ' '),
-                        p.Gender.PadRight(10, ' '));
-                }
-                Console.WriteLine(" ----------------------------------------------------------------------------------------------------------------------");
+                DisplayPersonTable(lPersons);
             }
             catch (SqlException e)
             {
@@ -626,7 +635,6 @@ namespace SuccinctlyExamples
                 return -1;
             }
         }
-
-        #endregion
+#endif //EXERCISE6
     }
 }
