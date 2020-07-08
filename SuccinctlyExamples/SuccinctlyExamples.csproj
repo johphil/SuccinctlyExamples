@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbUtils.cs" />
+    <Compile Include="Exercise6_1.cs" />
+    <Compile Include="Exercise6_2.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
